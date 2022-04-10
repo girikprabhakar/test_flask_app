@@ -2,5 +2,6 @@ version: '3'
 services:
   test_flask_app:
     image: 8285/test_flask_app:latest
+    container_name: test_flask_app
     ports:
       - 5000:5000
