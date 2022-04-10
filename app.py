@@ -3,7 +3,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_geek():
-    return '<h1>Hello from Flask & Docker. Image pulled from Docker Hub. All via Jenkins</h2>'
+    return '<h1>Hello from Flask & Docker. Pipeline View</h1>'
 
 
 if __name__ == "__main__":
