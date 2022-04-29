@@ -1,4 +1,4 @@
-pipeline{
+pipeline {
     environment {
         imagename = "8285/test_flask_app"
         registryCredential = 'docker-hub'
@@ -30,6 +30,7 @@ pipeline{
                     docker.withRegistry( '', registryCredential ) {
                     // dockerImage.push("$BUILD_NUMBER")
                     dockerImage.push('latest')
+                }
                 }
             }
             // post{
