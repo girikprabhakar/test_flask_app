@@ -1,9 +1,15 @@
 pipeline{
+    environment {
+        imagename = "8285/test_flask_app"
+        registryCredential = 'docker-hub'
+        dockerImage = ''
+    }
     agent any
     stages{
-        stage("build"){
+        stage("Building image"){
             steps{
                 echo "========Builing Image========"
+                sh 'docker build -t 8285/test_flask_app:latest .'
             }
             // post{
             //     always{
@@ -20,6 +26,11 @@ pipeline{
         stage("push"){
             steps{
                 echo "========Pushing Image========"
+                script {
+                    docker.withRegistry( '', registryCredential ) {
+                    // dockerImage.push("$BUILD_NUMBER")
+                    dockerImage.push('latest')
+                }
             }
             // post{
             //     always{
@@ -36,6 +47,8 @@ pipeline{
         stage("deploy"){
             steps{
                 echo "========Deploying========"
+                sh 'docker-compose up -d'
+                sh 'docker image prune -f'
             }
             // post{
             //     always{
