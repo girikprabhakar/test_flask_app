@@ -1,6 +1,7 @@
 pipeline {
     environment {
         imagename = "8285/test_flask_app"
+        containername = "test_flask_app"
         registryCredential = 'docker-hub'
         dockerImage = ''
     }
@@ -51,6 +52,8 @@ pipeline {
         stage("deploy"){
             steps{
                 echo "========Deploying========"
+                sh 'docker stop $containername'
+                sh 'docker rm $containername'
                 sh 'docker-compose up -d'
                 sh 'docker image prune -f'
             }
