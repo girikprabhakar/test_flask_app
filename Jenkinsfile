@@ -9,7 +9,10 @@ pipeline {
         stage("Building image"){
             steps{
                 echo "========Builing Image========"
-                sh 'docker build -t 8285/test_flask_app:latest .'
+                script {
+                    dockerImage = docker.build(imagename)
+                }
+                // sh 'docker build -t 8285/test_flask_app:latest .'
             }
             // post{
             //     always{
@@ -27,7 +30,7 @@ pipeline {
             steps{
                 echo "========Pushing Image========"
                 script {
-                    docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
+                    docker.withRegistry( "https://registry.hub.docker.com", registryCredential ) {
                     // dockerImage.push("$BUILD_NUMBER")
                     dockerImage.push('latest')
                 }
