@@ -17,7 +17,7 @@ pipeline{
             //     }
             // }
         }
-        stage("push){
+        stage("push"){
             steps{
                 echo "========Pushing Image========"
             }
